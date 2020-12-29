@@ -19,38 +19,34 @@ class Mouse {
   constructor(element) {
     this.element = element;
 
+    const stateUpdate = (e) => {
+      this.curX = e.clientX;
+      this.curY = e.clientY;
+      this.delta = 0;
+      this.under = true;
+    };
+
     // mouse event handlers
     element.addEventListener('mousemove', (e) => {
       this.tick();
 
-      this.curX = e.clientX;
-      this.curY = e.clientY;
-      this.delta = 0;
-      this.under = true;
+      stateUpdate(e);
     });
     element.addEventListener('mouseenter', (e) => {
       this.tick();
 
-      this.curX = e.clientX;
-      this.curY = e.clientY;
-      this.delta = 0;
-      this.under = true;
+      stateUpdate(e);
     });
     element.addEventListener('mouseleave', (e) => {
       this.tick();
 
-      this.curX = e.clientX;
-      this.curY = e.clientY;
-      this.delta = 0;
+      stateUpdate(e);
       this.under = false;
     });
     element.addEventListener('mousedown', (e) => {
       this.tick();
 
-      this.curX = e.clientX;
-      this.curY = e.clientY;
-      this.delta = 0;
-      this.under = true;
+      stateUpdate(e);
 
       // updating the state of the left mouse button
       if (e.button === 0) {

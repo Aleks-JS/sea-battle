@@ -4,7 +4,7 @@ const mouse = new Mouse(document.body);
 const tick = () => {
   requestAnimationFrame(tick);
 
-  console.log(mouse.curX, mouse.prevX);
+  console.log(mouse.curLeftBtn, mouse.prevLeftBtn);
   mouse.tick();
 };
 
