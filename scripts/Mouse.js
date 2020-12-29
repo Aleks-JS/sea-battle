@@ -1,7 +1,7 @@
 class Mouse {
   element = null;
 
-  under = false; // flag
+  under = false; // registration of the position of the mouse cursor over the object
   prevUnder = false;
 
   curX = null; // current coordinates
@@ -25,36 +25,59 @@ class Mouse {
 
       this.curX = e.clientX;
       this.curY = e.clientY;
+      this.delta = 0;
+      this.under = true;
     });
     element.addEventListener('mouseenter', (e) => {
       this.tick();
 
       this.curX = e.clientX;
       this.curY = e.clientY;
+      this.delta = 0;
+      this.under = true;
     });
     element.addEventListener('mouseleave', (e) => {
       this.tick();
 
       this.curX = e.clientX;
       this.curY = e.clientY;
+      this.delta = 0;
+      this.under = false;
     });
     element.addEventListener('mousedown', (e) => {
       this.tick();
 
       this.curX = e.clientX;
       this.curY = e.clientY;
+      this.delta = 0;
+      this.under = true;
+
+      // updating the state of the left mouse button
+      if (e.button === 0) {
+        this.curLeftBtn = true;
+      }
     });
     element.addEventListener('mouseup', (e) => {
       this.tick();
 
       this.curX = e.clientX;
       this.curY = e.clientY;
+      this.delta = 0;
+      this.under = true;
+
+      // updating the state of the left mouse button
+      if (e.button === 0) {
+        this.curLeftBtn = false;
+      }
     });
     element.addEventListener('wheel', (e) => {
       this.tick();
 
       this.curX = e.clientX;
       this.curY = e.clientY;
+      // updating the mouse wheel state
+      this.delta = e.deltaY > 0 ? 1 : -1;
+      this.under = true;
     });
   }
 
