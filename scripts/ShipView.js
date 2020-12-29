@@ -1,1 +1,1 @@
-class ShipView {}
+class ShipView extends Ship {}

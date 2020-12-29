@@ -1,1 +1,1 @@
-class BattleFieldView {}
+class BattleFieldView extends BattleField {}
