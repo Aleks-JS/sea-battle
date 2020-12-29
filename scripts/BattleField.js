@@ -2,15 +2,48 @@ class BattleField {
   ships = [];
   shots = [];
 
-  addShip() {}
+  // method of adding ship
+  addShip(ship) {
+    if (this.ships.includes(ship)) {
+      return false;
+    }
 
-  removeShip() {}
+    this.ships.push(ship);
+    return true;
+  }
 
-  removeAllShips() {}
+  // ship removal method
+  removeShip(ship) {
+    if (!this.ships.includes(ship)) {
+      return false;
+    }
+
+    const index = this.ships.indexOf(ship);
+    this.ships.splice(index, 1);
+    return true;
+  }
+
+  removeAllShips() {
+    const ships = this.ships.slice();
+
+    for (const ship of ships) {
+      this.removeShip(ship);
+    }
+
+    return ships.length;
+  }
 
   addShot() {}
 
   removeShot() {}
 
-  removeAllShots() {}
+  removeAllShots() {
+    const shots = this.shots.slice();
+
+    for (const shot of shots) {
+      this.removeShot(shot);
+    }
+
+    return shots.length;
+  }
 }
