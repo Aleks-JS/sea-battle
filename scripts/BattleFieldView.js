@@ -17,13 +17,13 @@ class BattleFieldView extends BattleField {
     const root = document.createElement('div');
     root.classList.add('battlefield');
 
-    const table = document.createElement('battlefield-table');
+    const table = document.createElement('div');
     table.classList.add('battlefield-table');
 
-    const dock = document.createElement('battlefield-dock');
+    const dock = document.createElement('div');
     dock.classList.add('battlefield-dock');
 
-    const polygon = document.createElement('battlefield-polygon');
+    const polygon = document.createElement('div');
     polygon.classList.add('battlefield-dock');
 
     Object.assign(this, { root, table, dock, polygon });
@@ -31,5 +31,6 @@ class BattleFieldView extends BattleField {
     // this.table = table;
     // this.dock = dock;
     // this.polygon = polygon;
+    root.append(table, dock, polygon);
   }
 }

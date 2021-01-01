@@ -12,5 +12,5 @@ const tick = () => {
 requestAnimationFrame(tick);
 */
 
-const battlefield = new BattleFieldView();
-console.log(battlefield);
+const app = new App();
+console.log(app);
