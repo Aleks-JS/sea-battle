@@ -1,3 +1,4 @@
+/*
 const mouse = new Mouse(document.body);
 
 // update state coordinates mouse
@@ -9,3 +10,7 @@ const tick = () => {
 };
 
 requestAnimationFrame(tick);
+*/
+
+const battlefield = new BattleFieldView();
+console.log(battlefield);

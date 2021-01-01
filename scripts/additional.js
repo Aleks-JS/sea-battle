@@ -5,6 +5,6 @@ const getRandomBetween = (min, max) => {
 
 // метод получения случайного элемента из переданных
 const getRandomFrom = (...args) => {
-  const index = Math.floor(ath.random() * args.length);
+  const index = Math.floor(Math.random() * args.length);
   return args[index];
 };

@@ -56,10 +56,7 @@ class Mouse {
     element.addEventListener('mouseup', (e) => {
       this.tick();
 
-      this.curX = e.clientX;
-      this.curY = e.clientY;
-      this.delta = 0;
-      this.under = true;
+      stateUpdate(e);
 
       // updating the state of the left mouse button
       if (e.button === 0) {
