@@ -4,6 +4,7 @@ class App {
   opponent = null;
 
   scenes = {};
+  activeScene = null;
 
   constructor(scenes = {}) {
     const mouse = new Mouse(document.body);
@@ -33,5 +34,26 @@ class App {
     this.mouse.tick();
   }
 
-  start() {}
+  start(sceneName) {
+    // если сцена с таким названием есть
+    if (this.activeScene && this.activeScene.name) {
+      return false;
+    }
+
+    // если сцена не существует
+    if (!this.scenes.hasOwnProperty(sceneName)) {
+      return false;
+    }
+
+    // если есть запущенная сцена, то останавливаем её
+    if (this.activeScene) {
+      this.activeScene.stop();
+    }
+
+    const scene = this.scenes[sceneName];
+    this.activeScene = scene;
+    scene.start();
+
+    return true;
+  }
 }
