@@ -11,6 +11,9 @@ class BattleFieldView extends BattleField {
   // storage of all shots
   polygon = null;
 
+  // cells
+  cells = [];
+
   constructor() {
     super();
 
@@ -27,10 +30,45 @@ class BattleFieldView extends BattleField {
     polygon.classList.add('battlefield-dock');
 
     Object.assign(this, { root, table, dock, polygon });
-    // this.root = root;
-    // this.table = table;
-    // this.dock = dock;
-    // this.polygon = polygon;
     root.append(table, dock, polygon);
+
+    // games table to battlefield
+    for (let y = 0; y < 10; y++) {
+      const row = [];
+      const tr = document.createElement('tr');
+      tr.classList.add('battlefield-row');
+      tr.dataset.y = y;
+      for (let x = 0; x < 10; x++) {
+        const td = document.createElement('td');
+        td.classList.add('battlefield-item');
+        td.dataset.x = x;
+
+        tr.append(td);
+        row.push(td);
+      }
+      table.append(tr);
+      this.cells.push(row);
+    }
+
+    /* markers for table */
+    // horizontal markers
+    for (let x = 0; x < 10; x++) {
+      const cell = this.cells[0][x];
+      const marker = document.createElement('div');
+
+      marker.classList.add('marker', 'marker-column');
+      marker.textContent = 'АБВГДЕЖЗИК'[x];
+      cell.append(marker);
+    }
+
+    // vertical markers
+    for (let y = 0; y < 10; y++) {
+      const cell = this.cells[y][0];
+      const marker = document.createElement('div');
+
+      marker.classList.add('marker', 'marker-row');
+      marker.textContent = y + 1;
+      cell.append(marker);
+    }
   }
 }
