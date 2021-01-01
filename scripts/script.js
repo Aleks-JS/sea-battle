@@ -3,4 +3,3 @@ const app = new App({
 });
 
 app.start('preparation');
-console.log(app);

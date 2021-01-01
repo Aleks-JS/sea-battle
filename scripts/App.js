@@ -23,7 +23,7 @@ class App {
 
     // initial scenes
     for (const scene of Object.values(this.scenes)) {
-      // scene.init();
+      scene.init();
     }
 
     requestAnimationFrame(() => this.tick());
@@ -31,6 +31,8 @@ class App {
 
   tick() {
     requestAnimationFrame(() => this.tick());
+
+    this.activeScene && this.activeScene.update();
     this.mouse.tick();
   }
 
