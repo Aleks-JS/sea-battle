@@ -1,16 +1,6 @@
-/*
-const mouse = new Mouse(document.body);
+const app = new App({
+  preparation: PreparationScene,
+});
 
-// update state coordinates mouse
-const tick = () => {
-  requestAnimationFrame(tick);
-
-  console.log(mouse.curLeftBtn, mouse.prevLeftBtn);
-  mouse.tick();
-};
-
-requestAnimationFrame(tick);
-*/
-
-const app = new App();
+app.start('preparation');
 console.log(app);
