@@ -84,12 +84,38 @@ class BattleField {
   }
 
   // method of adding ship
-  addShip(ship) {
+  addShip(ship, x, y) {
     if (this.ships.includes(ship)) {
       return false;
     }
 
     this.ships.push(ship);
+
+    if (this.inField(x, y)) {
+      const { x, y } = ship;
+
+      const dx = ship.direction === 'row';
+      const dy = ship.direction === 'column';
+
+      let placed = true;
+
+      for (let i = 0; i < ship.size; i++) {
+        if (!this.inField(x, y)) {
+          placed = false;
+          break;
+        }
+        const item = matrix[y + dy * i][x + dx * i];
+        item.ship = ship;
+        if (!item.freeCell) {
+          placed = false;
+          break;
+        }
+      }
+
+      placed && Object.assign(ship, { x, y });
+    }
+
+    this.#changed = true;
     return true;
   }
 
@@ -101,6 +127,7 @@ class BattleField {
 
     const index = this.ships.indexOf(ship);
     this.ships.splice(index, 1);
+    this.#changed = true;
     return true;
   }
 
