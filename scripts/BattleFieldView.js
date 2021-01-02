@@ -88,4 +88,9 @@ class BattleFieldView extends BattleField {
     }
     return true;
   }
+
+  // проверка нахождения точки над игровым полем
+  isUnder(point) {
+    return isUnderPoint(point, this.root);
+  }
 }

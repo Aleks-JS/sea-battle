@@ -81,5 +81,6 @@ class Mouse {
     this.prevUnder = this.under;
     this.prevLeftBtn = this.curLeftBtn;
     this.prevDelta = this.delta;
+    this.delta = 0;
   }
 }

@@ -30,4 +30,15 @@ class ShipView extends Ship {
 
     return true;
   }
+
+  // метод для переворачивания
+  toggleDirection() {
+    const newDirection = this.direction === 'row' ? 'column' : 'row';
+    this.setDirection(newDirection);
+  }
+
+  // проверка нахождения точки над кораблем
+  isUnder(point) {
+    return isUnderPoint(point, this.div);
+  }
 }
