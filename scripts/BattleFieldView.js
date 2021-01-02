@@ -3,7 +3,7 @@ class BattleFieldView extends BattleField {
   root = null;
 
   // battlefield
-  polygon = null;
+  table = null;
 
   // storage of all ships
   dock = null;
@@ -68,7 +68,24 @@ class BattleFieldView extends BattleField {
 
       marker.classList.add('marker', 'marker-row');
       marker.textContent = y + 1;
+
       cell.append(marker);
     }
+  }
+
+  // init local method addShip
+  addShip(ship) {
+    if (!super.addShip(ship)) {
+      return false;
+    }
+
+    this.dock.append(ship.div);
+
+    if (ship.placed) {
+    } else {
+      ship.div.style.left = `${ship.startX}px`;
+      ship.div.style.top = `${ship.startY}px`;
+    }
+    return true;
   }
 }

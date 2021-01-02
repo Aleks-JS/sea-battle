@@ -3,6 +3,13 @@ class Ship {
   size = null;
   direction = null;
   killed = false;
+  x = null;
+  y = null;
+
+  // checking the ship on the playing field
+  get placed() {
+    return this.x !== null && this.y !== null;
+  }
 
   constructor(size, direction) {
     this.size = size;
