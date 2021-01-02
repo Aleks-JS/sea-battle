@@ -24,7 +24,11 @@ class PreparationScene extends Scene {
       player.addShip(ship);
     }
   }
-  start() {}
+  start() {
+    const { player } = this.app;
+
+    console.log(player.matrix);
+  }
   update() {
     const { mouse, player } = this.app;
 
