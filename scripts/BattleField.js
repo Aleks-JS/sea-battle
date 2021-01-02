@@ -56,8 +56,8 @@ class BattleField {
       // }
 
       // optimized
-      for (let y = ship.y - 1; y < ship.y + ship.size * dy + dx; y++) {
-        for (let x = ship.x - 1; x < ship.x + ship.size * dx + dy; x++) {
+      for (let y = ship.y - 1; y < ship.y + ship.size * dy + dx + 1; y++) {
+        for (let x = ship.x - 1; x < ship.x + ship.size * dx + dy + 1; x++) {
           if (this.inField(x, y)) {
             const item = matrix[y][x];
             item.freeCell = false;
