@@ -4,8 +4,8 @@ class Mouse {
   under = false; // registration of the position of the mouse cursor over the object
   prevUnder = false;
 
-  curX = null; // current coordinates
-  curY = null;
+  x = null; // current coordinates
+  y = null;
 
   prevX = null; // previous coordinates
   prevY = null;
@@ -20,8 +20,8 @@ class Mouse {
     this.element = element;
 
     const stateUpdate = (e) => {
-      this.curX = e.clientX;
-      this.curY = e.clientY;
+      this.x = e.clientX;
+      this.y = e.clientY;
       this.delta = 0;
       this.under = true;
     };
@@ -66,8 +66,8 @@ class Mouse {
     element.addEventListener('wheel', (e) => {
       this.tick();
 
-      this.curX = e.clientX;
-      this.curY = e.clientY;
+      this.x = e.clientX;
+      this.y = e.clientY;
       // updating the mouse wheel state
       this.delta = e.deltaY > 0 ? 1 : -1;
       this.under = true;
@@ -76,8 +76,8 @@ class Mouse {
 
   // a method that will write the current state to the previous one
   tick() {
-    this.prevX = this.curX;
-    this.prevY = this.curY;
+    this.prevX = this.x;
+    this.prevY = this.y;
     this.prevUnder = this.under;
     this.prevLeftBtn = this.curLeftBtn;
     this.prevDelta = this.delta;

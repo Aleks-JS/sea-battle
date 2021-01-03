@@ -27,7 +27,7 @@ class PreparationScene extends Scene {
   start() {
     const { player } = this.app;
 
-    console.log(player.matrix);
+    console.log(player, player.matrix);
   }
   update() {
     const { mouse, player } = this.app;
@@ -40,16 +40,16 @@ class PreparationScene extends Scene {
         const shipRect = ship.div.getBoundingClientRect();
 
         this.draggedShip = ship;
-        this.draggedOffsetX = mouse.curX - shipRect.left;
-        this.draggedOffsetY = mouse.curY - shipRect.top;
+        this.draggedOffsetX = mouse.x - shipRect.left;
+        this.draggedOffsetY = mouse.y - shipRect.top;
       }
     }
 
     // Перетаскивание
     if (mouse.curLeftBtn && this.draggedShip) {
       const { left, top } = player.root.getBoundingClientRect();
-      const x = mouse.curX - left - this.draggedOffsetX;
-      const y = mouse.curY - top - this.draggedOffsetY;
+      const x = mouse.x - left - this.draggedOffsetX;
+      const y = mouse.y - top - this.draggedOffsetY;
       const el = this.draggedShip.div;
 
       el.style.left = `${x}px`;
@@ -58,7 +58,24 @@ class PreparationScene extends Scene {
 
     // Бросание
     if (!mouse.curLeftBtn && this.draggedShip) {
+      const ship = this.draggedShip;
       this.draggedShip = null;
+
+      // координаты левой верхней точки корабля
+      const { left, top } = ship.div.getBoundingClientRect();
+      // ширина и высота игрового поля
+      const { width, height } = player.cells[0][0].getBoundingClientRect();
+
+      // точка приземления корабля в ближайшей ячейке
+      const point = {
+        x: left + width / 2,
+        y: top + height / 2,
+      };
+
+      // проверка наличия ячейки, над которой бросаем элемент
+      const cell = player.cells
+        .flat()
+        .find((cell) => isUnderPoint(point, cell));
     }
 
     // Вращение

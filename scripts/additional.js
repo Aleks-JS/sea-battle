@@ -11,10 +11,8 @@ const getRandomFrom = (...args) => {
 
 // проверка нахождения точки над элементом
 const isUnderPoint = (point, element) => {
-  const { curX, curY } = point;
+  const { x, y } = point;
   const { left, top, width, height } = element.getBoundingClientRect();
 
-  return (
-    left <= curX && curX <= left + width && top <= curY && curY <= top + height
-  );
+  return left <= x && x <= left + width && top <= y && y <= top + height;
 };

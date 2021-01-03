@@ -67,7 +67,7 @@ class BattleField {
     }
 
     this.#matrix = matrix;
-    this.#changed = true;
+    this.#changed = false;
     return this.#matrix;
   }
 
@@ -99,6 +99,7 @@ class BattleField {
 
       let placed = true;
 
+      // checking whether the ship is within the playing field and checking adjacent cells to the ship
       for (let i = 0; i < ship.size; i++) {
         if (!this.inField(x, y)) {
           placed = false;
@@ -141,9 +142,13 @@ class BattleField {
     return ships.length;
   }
 
-  addShot() {}
+  addShot() {
+    this.#changed = true;
+  }
 
-  removeShot() {}
+  removeShot() {
+    this.#changed = true;
+  }
 
   removeAllShots() {
     const shots = this.shots.slice();
