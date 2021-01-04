@@ -27,7 +27,18 @@ class PreparationScene extends Scene {
   start() {
     const { player } = this.app;
 
-    console.log(player, player.matrix);
+    document
+      .querySelectorAll('.app-actions')
+      .forEach((element) => element.classList.add('hidden'));
+
+    document
+      .querySelector('[data-scene="preparation"]')
+      .classList.remove('hidden');
+
+    const manualPlaceBtn = document.querySelector('[data-action="manually"]');
+    const randomPlaceBtn = document.querySelector('[data-action="randomize"]');
+
+    randomPlaceBtn.addEventListener('click', () => this.randomize());
   }
   update() {
     const { mouse, player } = this.app;
@@ -94,5 +105,18 @@ class PreparationScene extends Scene {
       this.draggedShip.toggleDirection();
     }
   }
-  stop() {}
+
+  // вызов функции рандомного размещения кораблей
+  randomize() {
+    const { player } = this.app;
+
+    player.randomize(ShipView);
+
+    for (let i = 0; i < 10; i++) {
+      const ship = player.ships[i];
+
+      ship.startX = shipData[i].startX;
+      ship.startY = shipData[i].startY;
+    }
+  }
 }
