@@ -42,6 +42,7 @@ class BattleFieldView extends BattleField {
         const td = document.createElement('td');
         td.classList.add('battlefield-item');
         td.dataset.x = x;
+        td.dataset.y = y;
 
         tr.append(td);
         row.push(td);
@@ -74,18 +75,39 @@ class BattleFieldView extends BattleField {
   }
 
   // init local method addShip
-  addShip(ship) {
-    if (!super.addShip(ship)) {
+  addShip(ship, x, y) {
+    if (!super.addShip(ship, x, y)) {
       return false;
     }
 
     this.dock.append(ship.div);
 
     if (ship.placed) {
+      // when the ship is above the playing field, rewrite the coordinates
+      const cell = this.cells[y][x];
+      const cellRect = cell.getBoundingClientRect();
+      const rootRect = this.root.getBoundingClientRect();
+
+      ship.div.style.left = `${cellRect.left - rootRect.left}px`;
+      ship.div.style.top = `${cellRect.top - rootRect.top}px`;
     } else {
+      ship.setDirection('row');
       ship.div.style.left = `${ship.startX}px`;
       ship.div.style.top = `${ship.startY}px`;
     }
+    return true;
+  }
+
+  removeShip(ship) {
+    if (!super.removeShip(ship)) {
+      return false;
+    }
+
+    // when the ship is in the dock, remove it from the dock
+    if (Array.prototype.includes.call(this.dock.children, ship.div)) {
+      ship.div.remove();
+    }
+
     return true;
   }
 

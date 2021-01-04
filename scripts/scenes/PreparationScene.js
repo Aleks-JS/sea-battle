@@ -76,6 +76,17 @@ class PreparationScene extends Scene {
       const cell = player.cells
         .flat()
         .find((cell) => isUnderPoint(point, cell));
+
+      if (cell) {
+        const x = parseInt(cell.dataset.x);
+        const y = parseInt(cell.dataset.y);
+
+        player.removeShip(ship);
+        player.addShip(ship, x, y);
+      } else {
+        player.removeShip(ship);
+        player.addShip(ship);
+      }
     }
 
     // Вращение

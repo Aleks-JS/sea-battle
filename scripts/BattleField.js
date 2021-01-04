@@ -15,16 +15,18 @@ class BattleField {
 
     for (let y = 0; y < 10; y++) {
       const row = [];
+
       for (let x = 0; x < 10; x++) {
         const item = {
           x,
           y,
           ship: null,
-          freeCell: true,
+          free: true,
         };
 
         row.push(item);
       }
+
       matrix.push(row);
     }
 
@@ -60,7 +62,7 @@ class BattleField {
         for (let x = ship.x - 1; x < ship.x + ship.size * dx + dy + 1; x++) {
           if (this.inField(x, y)) {
             const item = matrix[y][x];
-            item.freeCell = false;
+            item.free = false;
           }
         }
       }
@@ -73,14 +75,14 @@ class BattleField {
 
   // checking the location of the ship in the playing field
   inField(x, y) {
-    const isNumber = (n) => {
+    const isNumber = (n) =>
       parseInt(n) === n && !isNaN(n) && ![Infinity, -Infinity].includes(n);
-    };
 
     if (!isNumber(x) || !isNumber(y)) {
       return false;
     }
-    return 0 <= x && x < 10 && 0 <= y && y <= 0;
+
+    return 0 <= x && x < 10 && 0 <= y && y < 10;
   }
 
   // method of adding ship
@@ -92,8 +94,6 @@ class BattleField {
     this.ships.push(ship);
 
     if (this.inField(x, y)) {
-      const { x, y } = ship;
-
       const dx = ship.direction === 'row';
       const dy = ship.direction === 'column';
 
@@ -101,19 +101,24 @@ class BattleField {
 
       // checking whether the ship is within the playing field and checking adjacent cells to the ship
       for (let i = 0; i < ship.size; i++) {
-        if (!this.inField(x, y)) {
+        const cx = x + dx * i;
+        const cy = y + dy * i;
+
+        if (!this.inField(cx, cy)) {
           placed = false;
           break;
         }
-        const item = matrix[y + dy * i][x + dx * i];
-        item.ship = ship;
-        if (!item.freeCell) {
+
+        const item = this.matrix[cy][cx];
+        if (!item.free) {
           placed = false;
           break;
         }
       }
 
-      placed && Object.assign(ship, { x, y });
+      if (placed) {
+        Object.assign(ship, { x, y });
+      }
     }
 
     this.#changed = true;
@@ -128,6 +133,10 @@ class BattleField {
 
     const index = this.ships.indexOf(ship);
     this.ships.splice(index, 1);
+
+    ship.x = null;
+    ship.y = null;
+
     this.#changed = true;
     return true;
   }
