@@ -1,5 +1,7 @@
 class ComputerScene extends Scene {
-  start() {
+  untouchables = [];
+
+  start(untouchables) {
     const { opponent } = this.app;
 
     document
@@ -12,6 +14,9 @@ class ComputerScene extends Scene {
 
     opponent.clear();
     opponent.randomize(ShipView);
+
+    // transfer the number of cells on which the enemy will not fire
+    this.untouchables = untouchables;
   }
 
   update() {

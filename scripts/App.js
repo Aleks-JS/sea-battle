@@ -36,7 +36,7 @@ class App {
     this.mouse.tick();
   }
 
-  start(sceneName) {
+  start(sceneName, ...args) {
     // если сцена с таким названием есть
     if (this.activeScene && this.activeScene.name === sceneName) {
       return false;
@@ -54,7 +54,7 @@ class App {
 
     const scene = this.scenes[sceneName];
     this.activeScene = scene;
-    scene.start();
+    scene.start(...args);
 
     return true;
   }

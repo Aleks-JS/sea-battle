@@ -22,3 +22,20 @@ const addEventListener = (element, ...args) => {
   element.addEventListener(...args);
   return () => element.removeEventListener(...args);
 };
+
+// получаем массив пустых ячеек на поле для уровня сложности противника
+const getSeveralRandom = (arr = [], size) => {
+  const array = arr.slice();
+
+  if (size > array.length) size = array.length;
+
+  const result = [];
+
+  while (result.length < size) {
+    const index = Math.floor(Math.random() * array.length);
+    const item = array.splice(index, 1);
+    result.push(item);
+  }
+
+  return result;
+};

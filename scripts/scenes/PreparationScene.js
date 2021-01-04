@@ -178,6 +178,19 @@ class PreparationScene extends Scene {
   // выбор сложности компьютерного соперника
   startComputer(level) {
     console.log(level);
-    this.app.start('computer');
+
+    // enemy difficulty settings
+    const matrix = this.app.player.matrix;
+    const withoutShipItem = matrix.flat().filter((item) => !item.ship);
+    let untouchables = [];
+
+    if (level === 'simple') {
+    } else if (level === 'middle') {
+      untouchables = getSeveralRandom(withoutShipItem, 20);
+    } else if (level === 'hard') {
+      untouchables = getSeveralRandom(withoutShipItem, 40);
+    }
+
+    this.app.start('computer', untouchables);
   }
 }
