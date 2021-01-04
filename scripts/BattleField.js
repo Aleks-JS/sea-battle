@@ -73,6 +73,21 @@ class BattleField {
     return this.#matrix;
   }
 
+  // checking the placement of all ships on the playing field
+  get complete() {
+    if (this.ships.length !== 10) {
+      return false;
+    }
+
+    for (const ship of this.ships) {
+      if (!ship.placed) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
   // checking the location of the ship in the playing field
   inField(x, y) {
     const isNumber = (n) =>

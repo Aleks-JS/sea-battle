@@ -49,6 +49,9 @@ class PreparationScene extends Scene {
         this.draggedShip = ship;
         this.draggedOffsetX = mouse.x - shipRect.left;
         this.draggedOffsetY = mouse.y - shipRect.top;
+
+        ship.x = null;
+        ship.y = null;
       }
     }
 
@@ -99,6 +102,16 @@ class PreparationScene extends Scene {
     // Вращение
     if (this.draggedShip && mouse.delta) {
       this.draggedShip.toggleDirection();
+    }
+
+    if (player.complete) {
+      document.querySelector('[data-computer="simple"]').disabled = false;
+      document.querySelector('[data-computer="middle"]').disabled = false;
+      document.querySelector('[data-computer="hard"]').disabled = false;
+    } else {
+      document.querySelector('[data-computer="simple"]').disabled = true;
+      document.querySelector('[data-computer="middle"]').disabled = true;
+      document.querySelector('[data-computer="hard"]').disabled = true;
     }
   }
 
