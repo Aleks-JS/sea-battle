@@ -1,0 +1,1 @@
+class ShotView extends Shot {}
