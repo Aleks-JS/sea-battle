@@ -178,7 +178,6 @@ class PreparationScene extends Scene {
   // выбор сложности компьютерного соперника
   startComputer(level) {
     console.log(level);
-    console.log(this.app);
     this.app.start('computer');
   }
 }
