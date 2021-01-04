@@ -58,11 +58,21 @@ class ComputerScene extends Scene {
       const x = getRandomBetween(0, 9);
       const y = getRandomBetween(0, 9);
 
-      const shot = new ShotView(x, y);
-      const result = player.addShot(shot);
+      // check of a shot in a non-touching cell
+      let inUntouchables = false;
+      for (const item of this.untouchables) {
+        if (item.x === x && item.y === y) {
+          inUntouchables = false;
+        }
+      }
 
-      if (result) {
-        this.playerTurn = shot.variant === 'miss' ? true : false;
+      if (!inUntouchables) {
+        const shot = new ShotView(x, y);
+        const result = player.addShot(shot);
+
+        if (result) {
+          this.playerTurn = shot.variant === 'miss' ? true : false;
+        }
       }
     }
   }
