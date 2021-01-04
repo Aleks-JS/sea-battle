@@ -43,6 +43,13 @@
               Расставить корабли случайно
             </button>
           </div>
+          <div class="app-actions hidden" data-scene="computer">
+            <div class="battlefield-status">Ваш ход</div>
+            <button class="app-action" data-action="gaveup">Сдаться</button>
+            <button class="app-action" data-action="again">
+              Играть еще раз
+            </button>
+          </div>
         </div>
         <div data-side="opponent"></div>
       </div>
@@ -53,6 +60,7 @@
     <script src="/scripts/App.js"></script>
     <script src="/scripts/Scene.js"></script>
     <script src="/scripts/scenes/PreparationScene.js"></script>
+    <script src="/scripts/scenes/ComputerScene.js"></script>
 
     <script src="/scripts/BattleField.js"></script>
     <script src="/scripts/BattleFieldView.js"></script>
