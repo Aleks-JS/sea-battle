@@ -60,9 +60,10 @@ class ComputerScene extends Scene {
 
       // check of a shot in a non-touching cell
       let inUntouchables = false;
+      const { matrix } = player;
       for (const item of this.untouchables) {
-        if (item.x === x && item.y === y) {
-          inUntouchables = false;
+        if ((item[0].x === x && item[0].y === y) || matrix[y][x].shouted) {
+          inUntouchables = true;
         }
       }
 
