@@ -20,14 +20,14 @@ class BattleFieldView extends BattleField {
     const root = document.createElement('div');
     root.classList.add('battlefield');
 
-    const table = document.createElement('div');
+    const table = document.createElement('table');
     table.classList.add('battlefield-table');
 
     const dock = document.createElement('div');
     dock.classList.add('battlefield-dock');
 
     const polygon = document.createElement('div');
-    polygon.classList.add('battlefield-dock');
+    polygon.classList.add('battlefield-polygon');
 
     Object.assign(this, { root, table, dock, polygon });
     root.append(table, dock, polygon);

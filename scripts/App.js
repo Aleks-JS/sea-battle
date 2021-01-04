@@ -38,7 +38,7 @@ class App {
 
   start(sceneName) {
     // если сцена с таким названием есть
-    if (this.activeScene && this.activeScene.name) {
+    if (this.activeScene && this.activeScene.name === sceneName) {
       return false;
     }
 

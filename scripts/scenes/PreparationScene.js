@@ -16,11 +16,14 @@ class PreparationScene extends Scene {
   draggedOffsetX = 0;
   draggedOffsetY = 0;
 
+  // все события, которые удалятся при завершении программы
+  removeEventListeners = [];
+
   init() {
     this.manually();
   }
   start() {
-    const { player } = this.app;
+    this.removeEventListeners = [];
 
     document
       .querySelectorAll('.app-actions')
@@ -30,12 +33,42 @@ class PreparationScene extends Scene {
       .querySelector('[data-scene="preparation"]')
       .classList.remove('hidden');
 
+    // получаем кнопки
     const manualPlaceBtn = document.querySelector('[data-action="manually"]');
     const randomPlaceBtn = document.querySelector('[data-action="randomize"]');
+    const simpleBtn = document.querySelector('[data-computer="simple"]');
+    const middleBtn = document.querySelector('[data-computer="middle"]');
+    const hardBtn = document.querySelector('[data-computer="hard"]');
 
-    manualPlaceBtn.addEventListener('click', () => this.manually());
-    randomPlaceBtn.addEventListener('click', () => this.randomize());
+    this.removeEventListeners.push(
+      addEventListener(manualPlaceBtn, 'click', () => this.manually())
+    );
+
+    this.removeEventListeners.push(
+      addEventListener(randomPlaceBtn, 'click', () => this.randomize())
+    );
+
+    this.removeEventListeners.push(
+      addEventListener(simpleBtn, 'click', () => this.startComputer('simple'))
+    );
+
+    this.removeEventListeners.push(
+      addEventListener(middleBtn, 'click', () => this.startComputer('middle'))
+    );
+
+    this.removeEventListeners.push(
+      addEventListener(hardBtn, 'click', () => this.startComputer('hard'))
+    );
   }
+
+  stop() {
+    for (const removeEventListener of this.removeEventListeners) {
+      removeEventListener();
+    }
+
+    this.removeEventListeners = [];
+  }
+
   update() {
     const { mouse, player } = this.app;
 
@@ -104,6 +137,7 @@ class PreparationScene extends Scene {
       this.draggedShip.toggleDirection();
     }
 
+    // активация/деактивация кнопок выбора режима сложности в зависимости от укомплектованности кораблей
     if (player.complete) {
       document.querySelector('[data-computer="simple"]').disabled = false;
       document.querySelector('[data-computer="middle"]').disabled = false;
@@ -139,5 +173,12 @@ class PreparationScene extends Scene {
       const ship = new ShipView(size, direction, startX, startY);
       player.addShip(ship);
     }
+  }
+
+  // выбор сложности компьютерного соперника
+  startComputer(level) {
+    console.log(level);
+    console.log(this.app);
+    this.app.start('computer');
   }
 }

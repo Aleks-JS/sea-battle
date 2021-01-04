@@ -16,3 +16,9 @@ const isUnderPoint = (point, element) => {
 
   return left <= x && x <= left + width && top <= y && y <= top + height;
 };
+
+// навешиваем обработчик и возвращаем функцию удаления обработчика
+const addEventListener = (element, ...args) => {
+  element.addEventListener(...args);
+  return () => element.removeEventListener(...args);
+};

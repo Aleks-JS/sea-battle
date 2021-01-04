@@ -2,13 +2,13 @@ class BattleField {
   ships = [];
   shots = [];
 
-  #matrix = null;
-  #changed = true;
+  _matrix = null;
+  _changed = true;
 
   // matrix creation and change control
   get matrix() {
-    if (!this.#changed) {
-      this.#matrix;
+    if (!this._changed) {
+      this._matrix;
     }
 
     const matrix = [];
@@ -68,9 +68,9 @@ class BattleField {
       }
     }
 
-    this.#matrix = matrix;
-    this.#changed = false;
-    return this.#matrix;
+    this._matrix = matrix;
+    this._changed = false;
+    return this._matrix;
   }
 
   // checking the placement of all ships on the playing field
@@ -136,7 +136,7 @@ class BattleField {
       }
     }
 
-    this.#changed = true;
+    this._changed = true;
     return true;
   }
 
@@ -152,7 +152,7 @@ class BattleField {
     ship.x = null;
     ship.y = null;
 
-    this.#changed = true;
+    this._changed = true;
     return true;
   }
 
@@ -167,11 +167,11 @@ class BattleField {
   }
 
   addShot() {
-    this.#changed = true;
+    this._changed = true;
   }
 
   removeShot() {
-    this.#changed = true;
+    this._changed = true;
   }
 
   removeAllShots() {
