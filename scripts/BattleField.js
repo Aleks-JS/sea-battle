@@ -199,7 +199,7 @@ class BattleField {
 
     // checking the presence of a ship in the cell
     if (matrix[y][x].ship) {
-      shot.setVariant('shot-wounded');
+      shot.setVariant('wounded');
 
       const { ship } = matrix[y][x];
       const dx = ship.direction === 'row';
@@ -209,8 +209,8 @@ class BattleField {
 
       // checking the ship for undamaged decks
       for (let i = 0; i < ship.size; i++) {
-        const cx = x + dx * i;
-        const cy = y + dy * i;
+        const cx = ship.x + dx * i;
+        const cy = ship.y + dy * i;
         const item = matrix[cy][cx];
 
         // Not all decks are wounded
@@ -223,7 +223,16 @@ class BattleField {
       // All decks are wounded
       if (killed) {
         ship.killed = true;
-        shot.setVariant('shot-killed');
+
+        for (let i = 0; i < ship.size; i++) {
+          const cx = ship.x + dx * i;
+          const cy = ship.y + dy * i;
+
+          const shot = this.shots.find(
+            (shot) => shot.x === cx && shot.y === cy
+          );
+          shot.setVariant('killed');
+        }
       }
     }
 

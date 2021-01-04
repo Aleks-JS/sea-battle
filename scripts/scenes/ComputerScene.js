@@ -1,5 +1,7 @@
 class ComputerScene extends Scene {
   start() {
+    const { opponent } = this.app;
+
     document
       .querySelectorAll('.app-actions')
       .forEach((element) => element.classList.add('hidden'));
@@ -7,6 +9,9 @@ class ComputerScene extends Scene {
     document
       .querySelector('[data-scene="computer"]')
       .classList.remove('hidden');
+
+    opponent.clear();
+    opponent.randomize(ShipView);
   }
 
   update() {

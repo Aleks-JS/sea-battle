@@ -19,6 +19,9 @@ class ShotView extends Shot {
     this.variant = variant;
 
     this.div.classList.remove('shot-missed', 'shot-wounded', 'shot-killed');
+    this.div.textContent = '';
+
+    console.log(this.variant);
 
     if (this.variant === 'miss') {
       this.div.classList.add('shot-missed');
