@@ -8,8 +8,8 @@ class App {
 
   constructor(scenes = {}) {
     const mouse = new Mouse(document.body);
-    const player = new BattleFieldView();
-    const opponent = new BattleFieldView();
+    const player = new BattleFieldView(true);
+    const opponent = new BattleFieldView(false);
 
     Object.assign(this, { mouse, player, opponent });
 

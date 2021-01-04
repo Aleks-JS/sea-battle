@@ -14,7 +14,10 @@ class BattleFieldView extends BattleField {
   // cells
   cells = [];
 
-  constructor() {
+  // show ships on game field
+  showShips = true;
+
+  constructor(showShips = true) {
     super();
 
     const root = document.createElement('div');
@@ -29,7 +32,7 @@ class BattleFieldView extends BattleField {
     const polygon = document.createElement('div');
     polygon.classList.add('battlefield-polygon');
 
-    Object.assign(this, { root, table, dock, polygon });
+    Object.assign(this, { root, table, dock, polygon, showShips });
     root.append(table, dock, polygon);
 
     // games table to battlefield
@@ -80,20 +83,22 @@ class BattleFieldView extends BattleField {
       return false;
     }
 
-    this.dock.append(ship.div);
+    if (this.showShips) {
+      this.dock.append(ship.div);
 
-    if (ship.placed) {
-      // when the ship is above the playing field, rewrite the coordinates
-      const cell = this.cells[y][x];
-      const cellRect = cell.getBoundingClientRect();
-      const rootRect = this.root.getBoundingClientRect();
+      if (ship.placed) {
+        // when the ship is above the playing field, rewrite the coordinates
+        const cell = this.cells[y][x];
+        const cellRect = cell.getBoundingClientRect();
+        const rootRect = this.root.getBoundingClientRect();
 
-      ship.div.style.left = `${cellRect.left - rootRect.left}px`;
-      ship.div.style.top = `${cellRect.top - rootRect.top}px`;
-    } else {
-      ship.setDirection('row');
-      ship.div.style.left = `${ship.startX}px`;
-      ship.div.style.top = `${ship.startY}px`;
+        ship.div.style.left = `${cellRect.left - rootRect.left}px`;
+        ship.div.style.top = `${cellRect.top - rootRect.top}px`;
+      } else {
+        ship.setDirection('row');
+        ship.div.style.left = `${ship.startX}px`;
+        ship.div.style.top = `${ship.startY}px`;
+      }
     }
     return true;
   }
