@@ -1,5 +1,6 @@
 class ComputerScene extends Scene {
   untouchables = [];
+  playerTurn = true;
 
   start(untouchables) {
     const { opponent } = this.app;
@@ -37,13 +38,31 @@ class ComputerScene extends Scene {
         cell.classList.add('battlefield-item__active');
 
         // shot when clicking on a cell
-        if (mouse.curLeftBtn && !mouse.prevLeftBtn) {
+        if (this.playerTurn && mouse.curLeftBtn && !mouse.prevLeftBtn) {
           const x = parseInt(cell.dataset.x);
           const y = parseInt(cell.dataset.y);
 
           const shot = new ShotView(x, y);
-          opponent.addShot(shot);
+          const result = opponent.addShot(shot);
+
+          // move order control
+          if (result) {
+            this.playerTurn = shot.variant === 'miss' ? false : true;
+          }
         }
+      }
+    }
+
+    // computer opponent's move
+    if (!this.playerTurn) {
+      const x = getRandomBetween(0, 9);
+      const y = getRandomBetween(0, 9);
+
+      const shot = new ShotView(x, y);
+      const result = player.addShot(shot);
+
+      if (result) {
+        this.playerTurn = shot.variant === 'miss' ? true : false;
       }
     }
   }
