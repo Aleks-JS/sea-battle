@@ -17,12 +17,7 @@ class PreparationScene extends Scene {
   draggedOffsetY = 0;
 
   init() {
-    const { player } = this.app;
-
-    for (const { size, direction, startX, startY } of shipData) {
-      const ship = new ShipView(size, direction, startX, startY);
-      player.addShip(ship);
-    }
+    this.manually();
   }
   start() {
     const { player } = this.app;
@@ -38,6 +33,7 @@ class PreparationScene extends Scene {
     const manualPlaceBtn = document.querySelector('[data-action="manually"]');
     const randomPlaceBtn = document.querySelector('[data-action="randomize"]');
 
+    manualPlaceBtn.addEventListener('click', () => this.manually());
     randomPlaceBtn.addEventListener('click', () => this.randomize());
   }
   update() {
@@ -117,6 +113,18 @@ class PreparationScene extends Scene {
 
       ship.startX = shipData[i].startX;
       ship.startY = shipData[i].startY;
+    }
+  }
+
+  // выбор ручного размещения кораблей
+  manually() {
+    const { player } = this.app;
+
+    player.removeAllShips();
+
+    for (const { size, direction, startX, startY } of shipData) {
+      const ship = new ShipView(size, direction, startX, startY);
+      player.addShip(ship);
     }
   }
 }
