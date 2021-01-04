@@ -22,6 +22,8 @@ class BattleField {
           y,
           ship: null,
           free: true,
+          shouted: false,
+          wounded: false,
         };
 
         row.push(item);
@@ -65,6 +67,18 @@ class BattleField {
             item.free = false;
           }
         }
+      }
+    }
+
+    // checking the location of the shot
+    for (const { x, y } of this.shots) {
+      const item = matrix[y][x];
+      // mark the cell after shooting at it
+      item.shouted = true;
+
+      // If in a cell the ship we mark wound
+      if (item.ship) {
+        item.wounded = true;
       }
     }
 
@@ -166,8 +180,54 @@ class BattleField {
     return ships.length;
   }
 
-  addShot() {
+  // adding shot
+  addShot(shot) {
+    // If the shot on a cell already was, nothing is done
+    for (const { x, y } of this.shots) {
+      if (x === shot.x && y === shot.y) {
+        return false;
+      }
+    }
+
+    // adding shot in array
+    this.shots.push(shot);
+
     this._changed = true;
+
+    const matrix = this.matrix;
+    const { x, y } = shot;
+
+    // checking the presence of a ship in the cell
+    if (matrix[y][x].ship) {
+      shot.setVariant('shot-wounded');
+
+      const { ship } = matrix[y][x];
+      const dx = ship.direction === 'row';
+      const dy = ship.direction === 'column';
+
+      let killed = true;
+
+      // checking the ship for undamaged decks
+      for (let i = 0; i < ship.size; i++) {
+        const cx = x + dx * i;
+        const cy = y + dy * i;
+        const item = matrix[cy][cx];
+
+        // Not all decks are wounded
+        if (!item.wounded) {
+          killed = false;
+          break;
+        }
+      }
+
+      // All decks are wounded
+      if (killed) {
+        ship.killed = true;
+        shot.setVariant('shot-killed');
+      }
+    }
+
+    return true;
   }
 
   removeShot() {

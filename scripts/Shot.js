@@ -6,4 +6,8 @@ class Shot {
   constructor(x, y, variant) {
     Object.assign(this, { x, y, variant });
   }
+
+  setVariant(variant) {
+    this.variant = variant;
+  }
 }
