@@ -230,8 +230,15 @@ class BattleField {
     return true;
   }
 
-  removeShot() {
+  removeShot(shot) {
+    if (this.shots.includes(shot)) {
+      return false;
+    }
+
+    const index = this.shots.indexOf(shot);
+    this.shots.splice(index, 1);
     this._changed = true;
+    return true;
   }
 
   removeAllShots() {
@@ -262,5 +269,10 @@ class BattleField {
         }
       }
     }
+  }
+
+  clear() {
+    this.removeAllShips();
+    this.removeAllShots();
   }
 }

@@ -134,4 +134,17 @@ class BattleFieldView extends BattleField {
 
     return true;
   }
+
+  // remove visual shot
+  removeShot(shot) {
+    if (!super.removeShot(shot)) {
+      return false;
+    }
+
+    if (Array.prototype.includes.call(this.polygon, shot.div)) {
+      shot.div.remove();
+    }
+
+    return true;
+  }
 }
