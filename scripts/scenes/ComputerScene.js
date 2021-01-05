@@ -61,6 +61,10 @@ class ComputerScene extends Scene {
 
     // determine the end of the game
     const isEnd = opponent.lost || player.lost;
+
+    const cells = opponent.cells.flat();
+    cells.forEach((cell) => cell.classList.remove('battlefield-item__active'));
+
     if (isEnd) {
       opponent.lost
         ? (this.status.textContent = 'Вы выиграли!')
@@ -75,15 +79,9 @@ class ComputerScene extends Scene {
       return;
     }
 
-    const cells = opponent.cells.flat();
-
     // when the cursor above a field
     if (isUnderPoint(mouse, opponent.table)) {
       const cell = cells.find((cell) => isUnderPoint(mouse, cell));
-
-      cells.forEach((cell) =>
-        cell.classList.remove('battlefield-item__active')
-      );
 
       if (cell) {
         // on hover, the cell is painted over
