@@ -5,6 +5,17 @@ class BattleField {
   _matrix = null;
   _changed = true;
 
+  // checking dead ships
+  get lost() {
+    for (const ship of this.ships) {
+      if (!ship.killed) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
   // matrix creation and change control
   get matrix() {
     if (!this._changed) {

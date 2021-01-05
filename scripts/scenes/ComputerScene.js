@@ -1,6 +1,11 @@
 class ComputerScene extends Scene {
   untouchables = [];
   playerTurn = true;
+  status = null;
+
+  init() {
+    this.status = document.querySelector('.battlefield-status');
+  }
 
   start(untouchables) {
     const { opponent } = this.app;
@@ -22,6 +27,16 @@ class ComputerScene extends Scene {
 
   update() {
     const { mouse, opponent, player } = this.app;
+
+    // determine the end of the game
+    const isEnd = opponent.lost || player.lost;
+    console.log(opponent.lost, player.lost);
+    if (isEnd) {
+      opponent.lost
+        ? (this.status.textContent = 'Вы выиграли!')
+        : (this.status.textContent = 'Вы проиграли((');
+      return;
+    }
 
     const cells = opponent.cells.flat();
 
@@ -76,5 +91,10 @@ class ComputerScene extends Scene {
         }
       }
     }
+
+    // changed order status
+    this.playerTurn
+      ? (this.status.textContent = 'Ваш ход')
+      : (this.status.textContent = 'Ход компьютера');
   }
 }
