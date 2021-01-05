@@ -146,7 +146,7 @@ class BattleFieldView extends BattleField {
       return false;
     }
 
-    if (Array.prototype.includes.call(this.polygon, shot.div)) {
+    if (Array.prototype.includes.call(this.polygon.children, shot.div)) {
       shot.div.remove();
     }
 

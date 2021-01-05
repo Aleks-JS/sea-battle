@@ -23,6 +23,12 @@ class PreparationScene extends Scene {
     this.manually();
   }
   start() {
+    const { player, opponent } = this.app;
+
+    // reset the data at start
+    opponent.clear();
+    player.removeAllShots();
+    player.ships.forEach((ship) => (ship.killed = false));
     this.removeEventListeners = [];
 
     document

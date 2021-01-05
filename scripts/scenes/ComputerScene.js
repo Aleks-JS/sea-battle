@@ -2,6 +2,7 @@ class ComputerScene extends Scene {
   untouchables = [];
   playerTurn = true;
   status = null;
+  removeEventListeners = [];
 
   init() {
     this.status = document.querySelector('.battlefield-status');
@@ -23,6 +24,36 @@ class ComputerScene extends Scene {
 
     // transfer the number of cells on which the enemy will not fire
     this.untouchables = untouchables;
+
+    this.removeEventListeners = [];
+
+    // control buttons give up and start over
+    const surrenderBtn = document.querySelector("[data-action='surrender']");
+
+    const againBtn = document.querySelector("[data-action='again']");
+
+    surrenderBtn.classList.remove('hidden');
+    againBtn.classList.add('hidden');
+
+    this.removeEventListeners.push(
+      addEventListener(surrenderBtn, 'click', () => {
+        this.app.start('preparation');
+      })
+    );
+
+    this.removeEventListeners.push(
+      addEventListener(againBtn, 'click', () => {
+        this.app.start('preparation');
+      })
+    );
+  }
+
+  stop() {
+    for (const removeEventListener of this.removeEventListeners) {
+      removeEventListener();
+    }
+
+    this.removeEventListeners = [];
   }
 
   update() {
@@ -30,11 +61,17 @@ class ComputerScene extends Scene {
 
     // determine the end of the game
     const isEnd = opponent.lost || player.lost;
-    console.log(opponent.lost, player.lost);
     if (isEnd) {
       opponent.lost
         ? (this.status.textContent = 'Вы выиграли!')
         : (this.status.textContent = 'Вы проиграли((');
+
+      document
+        .querySelector("[data-action='surrender']")
+        .classList.add('hidden');
+      document
+        .querySelector("[data-action='again']")
+        .classList.remove('hidden');
       return;
     }
 
