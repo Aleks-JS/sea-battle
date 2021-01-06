@@ -5,20 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sea Battle</title>
     <link rel="stylesheet" href="style/style.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <div class="app">
       <div class="app-header">
         <h1 class="app-title">Морской бой</h1>
-        <span class="app-subtitle"
-          >Проект школы программирования
-          <a href="https://constcode.ru" class="app-link" target="_blank"
-            >ConstCode.ru</a
-          ></span
-        >
       </div>
       <div class="app-body">
-        <div data-side="player"></div>
+        <div class="player" data-side="player"></div>
         <div class="app-menu">
           <div class="app-actions" data-scene="preparation">
             <button class="app-action" data-computer="simple" disabled>
@@ -51,7 +50,7 @@
             </button>
           </div>
         </div>
-        <div data-side="opponent"></div>
+        <div class="opponent" data-side="opponent"></div>
       </div>
     </div>
     <script src="scripts/additional.js"></script>
