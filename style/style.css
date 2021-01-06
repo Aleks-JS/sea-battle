@@ -13,7 +13,7 @@ body {
 .app {
   max-width: 1100px;
   margin: 0 auto;
-  padding: 0 50px;
+  padding: 0 35px;
 }
 
 .app-header {
@@ -200,4 +200,10 @@ body {
 
 .hidden {
   display: none;
+}
+
+@media (max-width:987px) {
+  .player {
+    margin-bottom: 40px;
+  }
 }

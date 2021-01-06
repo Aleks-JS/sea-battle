@@ -1,4 +1,4 @@
-const shipData = [
+const shipsDockedMax = [
   { size: 4, direction: 'row', startX: 10, startY: 345 },
   { size: 3, direction: 'row', startX: 10, startY: 390 },
   { size: 3, direction: 'row', startX: 120, startY: 390 },
@@ -11,10 +11,25 @@ const shipData = [
   { size: 1, direction: 'row', startX: 145, startY: 480 },
 ];
 
+const shipsDockedMedium = [
+  { size: 4, direction: 'row', startX: 355, startY: -23 },
+  { size: 3, direction: 'row', startX: 355, startY: 17 },
+  { size: 3, direction: 'row', startX: 355, startY: 57 },
+  { size: 2, direction: 'row', startX: 355, startY: 97 },
+  { size: 2, direction: 'row', startX: 355, startY: 137 },
+  { size: 2, direction: 'row', startX: 355, startY: 177 },
+  { size: 1, direction: 'row', startX: 355, startY: 217 },
+  { size: 1, direction: 'row', startX: 355, startY: 257 },
+  { size: 1, direction: 'row', startX: 355, startY: 297 },
+  { size: 1, direction: 'row', startX: 355, startY: 337 },
+];
+
 class PreparationScene extends Scene {
   draggedShip = null;
   draggedOffsetX = 0;
   draggedOffsetY = 0;
+
+  shipData = shipsDockedMax;
 
   // все события, которые удалятся при завершении программы
   removeEventListeners = [];
@@ -78,8 +93,12 @@ class PreparationScene extends Scene {
   update() {
     const { mouse, player } = this.app;
 
-    // хотим начать тянуть корабль
+    const clientWidth = document.documentElement.clientWidth;
+    if (clientWidth < 988 && clientWidth > 900) this.manually();
+    if (clientWidth > 987 && clientWidth < 1100) this.manually();
+
     if (!this.draggedShip && mouse.curLeftBtn && !mouse.prevLeftBtn) {
+      // хотим начать тянуть корабль
       const ship = player.ships.find((ship) => ship.isUnder(mouse));
 
       if (ship) {
@@ -159,13 +178,21 @@ class PreparationScene extends Scene {
   randomize() {
     const { player } = this.app;
 
+    const clientWidth = document.documentElement.clientWidth;
+
+    if (clientWidth <= 987) {
+      this.shipData = shipsDockedMedium;
+    } else if (clientWidth > 987) {
+      this.shipData = shipsDockedMax;
+    }
+
     player.randomize(ShipView);
 
     for (let i = 0; i < 10; i++) {
       const ship = player.ships[i];
 
-      ship.startX = shipData[i].startX;
-      ship.startY = shipData[i].startY;
+      ship.startX = this.shipData[i].startX;
+      ship.startY = this.shipData[i].startY;
     }
   }
 
@@ -175,7 +202,15 @@ class PreparationScene extends Scene {
 
     player.removeAllShips();
 
-    for (const { size, direction, startX, startY } of shipData) {
+    const clientWidth = document.documentElement.clientWidth;
+
+    if (clientWidth <= 987) {
+      this.shipData = shipsDockedMedium;
+    } else if (clientWidth > 987) {
+      this.shipData = shipsDockedMax;
+    }
+
+    for (const { size, direction, startX, startY } of this.shipData) {
       const ship = new ShipView(size, direction, startX, startY);
       player.addShip(ship);
     }
