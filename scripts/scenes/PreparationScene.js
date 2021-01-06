@@ -29,6 +29,7 @@ class PreparationScene extends Scene {
   draggedOffsetX = 0;
   draggedOffsetY = 0;
 
+  lastClientWidth = document.documentElement.clientWidth;
   shipData = shipsDockedMax;
 
   // все события, которые удалятся при завершении программы
@@ -92,10 +93,13 @@ class PreparationScene extends Scene {
 
   update() {
     const { mouse, player } = this.app;
-
     const clientWidth = document.documentElement.clientWidth;
-    if (clientWidth < 988 && clientWidth > 900) this.manually();
-    if (clientWidth > 987 && clientWidth < 1100) this.manually();
+
+    // ловим изменения ширины экрана
+    if (clientWidth !== this.lastClientWidth) {
+      this.manually();
+      this.lastClientWidth = clientWidth;
+    }
 
     if (!this.draggedShip && mouse.curLeftBtn && !mouse.prevLeftBtn) {
       // хотим начать тянуть корабль
