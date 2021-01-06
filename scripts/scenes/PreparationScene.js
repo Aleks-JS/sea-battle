@@ -28,6 +28,7 @@ class PreparationScene extends Scene {
   draggedShip = null;
   draggedOffsetX = 0;
   draggedOffsetY = 0;
+  placed = null;
 
   lastClientWidth = document.documentElement.clientWidth;
   shipData = shipsDockedMax;
@@ -109,6 +110,7 @@ class PreparationScene extends Scene {
         const shipRect = ship.div.getBoundingClientRect();
 
         this.draggedShip = ship;
+        this.placed = this.draggedShip.placed;
         this.draggedOffsetX = mouse.x - shipRect.left;
         this.draggedOffsetY = mouse.y - shipRect.top;
 
@@ -132,6 +134,7 @@ class PreparationScene extends Scene {
     if (!mouse.curLeftBtn && this.draggedShip) {
       const ship = this.draggedShip;
       this.draggedShip = null;
+      this.placed = null;
 
       // координаты левой верхней точки корабля
       const { left, top } = ship.div.getBoundingClientRect();
@@ -166,8 +169,21 @@ class PreparationScene extends Scene {
       this.draggedShip.toggleDirection();
     }
 
-    // активация/деактивация кнопок выбора режима сложности в зависимости от укомплектованности кораблей
+    if (
+      this.draggedShip &&
+      mouse.touchStart &&
+      !mouse.prevTouchStart &&
+      !mouse.touchMove &&
+      !mouse.prevTouchMove &&
+      this.placed
+    ) {
+      this.draggedShip.toggleDirection();
+      console.log(this.draggedShip);
+      console.log(this.placed);
+    }
+
     if (player.complete) {
+      // активация/деактивация кнопок выбора режима сложности в зависимости от укомплектованности кораблей
       document.querySelector('[data-computer="simple"]').disabled = false;
       document.querySelector('[data-computer="middle"]').disabled = false;
       document.querySelector('[data-computer="hard"]').disabled = false;

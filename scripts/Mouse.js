@@ -16,6 +16,12 @@ class Mouse {
   delta = 0; // mouse wheel scroll state
   prevDelta = 0;
 
+  touchStart = null;
+  prevTouchStart = null;
+
+  touchMove = null;
+  prevTouchMove = null;
+
   constructor(element) {
     this.element = element;
 
@@ -27,24 +33,25 @@ class Mouse {
     };
 
     // mouse event handlers
-    element.addEventListener('mousemove', (e) => {
+    element.addEventListener('pointermove', (e) => {
+      this.tick();
+      this.touchMove = true;
+      stateUpdate(e);
+    });
+    element.addEventListener('pointerenter', (e) => {
       this.tick();
 
       stateUpdate(e);
     });
-    element.addEventListener('mouseenter', (e) => {
-      this.tick();
-
-      stateUpdate(e);
-    });
-    element.addEventListener('mouseleave', (e) => {
+    element.addEventListener('pointerleave', (e) => {
       this.tick();
 
       stateUpdate(e);
       this.under = false;
     });
-    element.addEventListener('mousedown', (e) => {
+    element.addEventListener('pointerdown', (e) => {
       this.tick();
+      this.touchStart = true;
 
       stateUpdate(e);
 
@@ -53,8 +60,12 @@ class Mouse {
         this.curLeftBtn = true;
       }
     });
-    element.addEventListener('mouseup', (e) => {
+    element.addEventListener('pointerup', (e) => {
       this.tick();
+      console.log(this.touchStart, this.touchMove);
+      this.touchMove = false;
+      this.touchStart = false;
+      console.log(this.touchStart, this.touchMove);
 
       stateUpdate(e);
 
@@ -72,6 +83,22 @@ class Mouse {
       this.delta = e.deltaY > 0 ? 1 : -1;
       this.under = true;
     });
+
+    // element.addEventListener('touchstart', (e) => {
+    //   console.log(e);
+    //   this.curTouchStart = true;
+    //   this.curTouchStart = false;
+
+    //   stateUpdate(e);
+    // });
+
+    // element.addEventListener('touchend', (e) => {
+    //   console.log(e);
+
+    //   this.curTouchMove = false;
+    //   this.curTouchStart = false;
+    //   stateUpdate(e);
+    // });
   }
 
   // a method that will write the current state to the previous one
@@ -81,6 +108,8 @@ class Mouse {
     this.prevUnder = this.under;
     this.prevLeftBtn = this.curLeftBtn;
     this.prevDelta = this.delta;
+    this.prevTouchStart = this.touchStart;
+    this.prevTouchMove = this.touchMove;
     this.delta = 0;
   }
 }

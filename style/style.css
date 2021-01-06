@@ -95,6 +95,7 @@ body {
   background: rgba(0, 55, 255, 0.45);
   width: 32px;
   height: 32px;
+  touch-action: none;
 }
 
 .ship-row-1 {}
