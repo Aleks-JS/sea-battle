@@ -2,7 +2,7 @@
 
 Проект - игра "Морской бой". На чистом JavaScript и HTML.
 
-<h2 align="center"><a  href="aleks-js.github.io/sea-battle/">Live Demo</a></h2>
+<h2 align="center"><a  href="https://aleks-js.github.io/sea-battle/">Live Demo</a></h2>
 
 ### Основные задачи
 * Создать рабочую версию PC игры на чистом LavaScript, без использовани фреймфорков и бибдлиотек
