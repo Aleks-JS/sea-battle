@@ -188,7 +188,18 @@ body {
   position: relative;
 }
 
-.actions-buttons button {
+.app-action {
+  max-width: 210px;
+  padding: 10px;
+  font-weight: 300;
+  border: 1px solid rgba(117, 117, 117, 0.212);
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  font-size: 13px;
+  text-transform: uppercase;
   width: 200px;
   margin-bottom: 5px;
   transition: .3s;
@@ -199,11 +210,11 @@ body {
   overflow: hidden;
 }
 
-.actions-buttons button:last-child {
+.app-action:last-child {
   margin-bottom: 8px;
 }
 
-.actions-buttons button::before {
+.app-action::before {
   content: '';
   display: block;
   position: absolute;
@@ -222,7 +233,7 @@ body {
   -o-transform: translateX(-100px) skewX(-15deg);
 }
 
-.actions-buttons button::after {
+.app-action::after {
   content: '';
   display: block;
   position: absolute;
@@ -241,11 +252,19 @@ body {
   -o-transform: translateX(-100px) skewX(-15deg);
 }
 
-.actions-buttons button:hover {
+.app-action:hover {
   background-color: rgba(224, 224, 224, 0.924);
+  -webkit-box-shadow: 0px 5px 7px -1px rgba(107, 107, 107, 0.397);
+  -moz-box-shadow: 0px 5px 7px -1px rgba(107, 107, 107, 0.397);
+  box-shadow: 0px 5px 7px -1px rgba(107, 107, 107, 0.397);
+  transform: scale(1.05%);
+  -webkit-transform: scale(1.02);
+  -moz-transform: scale(1.02);
+  -ms-transform: scale(1.02);
+  -o-transform: scale(1.02);
 }
 
-.actions-buttons button:hover:before {
+.app-action:hover:before {
   transform: translateX(300px) skewX(-15deg);
   opacity: 0.6;
   transition: .7s;
@@ -255,7 +274,7 @@ body {
   -o-transform: translateX(300px) skewX(-15deg);
 }
 
-.actions-buttons button:hover:after {
+.app-action:hover:after {
   opacity: 1;
   transition: .7s;
   transform: translateX(300px)skewX(-15deg);
@@ -265,26 +284,27 @@ body {
   -o-transform: translateX(300px)skewX(-15deg);
 }
 
-.actions-buttons button:disabled,
-.actions-buttons button[disabled] {
+.app-action:active {
+  border: 1px solid rgba(240, 240, 240, 0.623);
+  background-color: #fbfbfb;
+  transform: scale(0.98);
+  -webkit-transform: scale(0.98);
+  -moz-transform: scale(0.98);
+  -ms-transform: scale(0.98);
+  -o-transform: scale(0.98);
+  box-shadow: 0px 1px 1px -1px rgba(107, 107, 107, 0.178)
+}
+
+.app-action:focus {
+  border-width: 1px;
+}
+
+.app-action:disabled,
+.app-action[disabled] {
   border: 1px solid #9999993f;
   background-color: #eeeeee49;
   color: #66666638;
   cursor: not-allowed;
-}
-
-.app-action {
-  max-width: 210px;
-  padding: 10px;
-  font-weight: 300;
-  border: 1px solid rgba(128, 128, 128, 0.623);
-  border-radius: 3px;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  -ms-border-radius: 3px;
-  -o-border-radius: 3px;
-  font-size: 13px;
-  text-transform: uppercase;
 }
 
 .shot {
