@@ -62,10 +62,8 @@ class Mouse {
     });
     element.addEventListener('pointerup', (e) => {
       this.tick();
-      console.log(this.touchStart, this.touchMove);
       this.touchMove = false;
       this.touchStart = false;
-      console.log(this.touchStart, this.touchMove);
 
       stateUpdate(e);
 
