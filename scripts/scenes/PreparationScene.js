@@ -187,10 +187,16 @@ class PreparationScene extends Scene {
       document.querySelector('[data-computer="simple"]').disabled = false;
       document.querySelector('[data-computer="middle"]').disabled = false;
       document.querySelector('[data-computer="hard"]').disabled = false;
+      document
+        .querySelector('.title-difficulty')
+        .classList.remove('inactive-title');
     } else {
       document.querySelector('[data-computer="simple"]').disabled = true;
       document.querySelector('[data-computer="middle"]').disabled = true;
       document.querySelector('[data-computer="hard"]').disabled = true;
+      document
+        .querySelector('.title-difficulty')
+        .classList.add('inactive-title');
     }
   }
 
