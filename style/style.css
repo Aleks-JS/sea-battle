@@ -3,6 +3,11 @@
   padding: 0;
   user-select: none;
   font-family: 'Roboto', sans-serif;
+  color: #575757;
+}
+
+button {
+  cursor: pointer;
 }
 
 body {
@@ -18,15 +23,16 @@ body {
 
 .app-header {
   text-align: center;
-  padding: 30px;
+  line-height: 100px;
 }
 
 .app-body {
-  margin-top: 50px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: flex-end;
   flex-wrap: wrap;
+  position: relative;
 }
 
 .app-subtitle {
@@ -129,6 +135,7 @@ body {
 .app-menu {
   margin-left: 3px;
   margin-right: 37px;
+  width: 220px;
 }
 
 .app-actions {
@@ -138,17 +145,166 @@ body {
   justify-content: space-between;
 }
 
+.actions-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  border: 1px solid rgba(165, 165, 165, 0.294);
+  border-radius: 5px;
+  padding-top: 10px;
+  margin-top: 7px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+}
+
+.actions-title {
+  font-size: 14px;
+  position: absolute;
+  top: -8px;
+  background-color: #ffffff;
+  padding: 0 5px;
+  text-transform: uppercase;
+  transition: .3s;
+  -webkit-transition: .3s;
+  -moz-transition: .3s;
+  -ms-transition: .3s;
+  -o-transition: .3s;
+}
+
+.inactive-title {
+  color: #57575754;
+}
+
+.actions-buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.button-wrap {
+  position: relative;
+}
+
 .app-action {
   max-width: 210px;
   padding: 10px;
   font-weight: 300;
-  border: 1px solid rgba(128, 128, 128, 0.623);
+  border: 1px solid rgba(117, 117, 117, 0.212);
   border-radius: 3px;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   -ms-border-radius: 3px;
   -o-border-radius: 3px;
   font-size: 13px;
+  text-transform: uppercase;
+  width: 200px;
+  margin-bottom: 5px;
+  transition: .3s;
+  -webkit-transition: .3s;
+  -moz-transition: .3s;
+  -ms-transition: .3s;
+  -o-transition: .3s;
+  overflow: hidden;
+}
+
+.app-action:last-child {
+  margin-bottom: 8px;
+}
+
+.app-action::before {
+  content: '';
+  display: block;
+  position: absolute;
+  background: rgba(255, 255, 255, 0.5);
+  width: 60px;
+  height: 100%;
+  left: 0;
+  top: 0;
+  opacity: .5;
+  -webkit-filter: blur(30px);
+  filter: blur(30px);
+  -webkit-transform: translateX(-100px) skewX(-15deg);
+  transform: translateX(-100px) skewX(-15deg);
+  -moz-transform: translateX(-100px) skewX(-15deg);
+  -ms-transform: translateX(-100px) skewX(-15deg);
+  -o-transform: translateX(-100px) skewX(-15deg);
+}
+
+.app-action::after {
+  content: '';
+  display: block;
+  position: absolute;
+  background: rgba(255, 255, 255, 0.2);
+  width: 30px;
+  height: 100%;
+  left: 30px;
+  top: 0;
+  opacity: 0;
+  -webkit-filter: blur(5px);
+  filter: blur(5px);
+  -webkit-transform: translateX(-100px) skewX(-15deg);
+  transform: translateX(-100px) skewX(-15deg);
+  -moz-transform: translateX(-100px) skewX(-15deg);
+  -ms-transform: translateX(-100px) skewX(-15deg);
+  -o-transform: translateX(-100px) skewX(-15deg);
+}
+
+.app-action:hover {
+  background-color: rgba(224, 224, 224, 0.924);
+  -webkit-box-shadow: 0px 5px 7px -1px rgba(107, 107, 107, 0.397);
+  -moz-box-shadow: 0px 5px 7px -1px rgba(107, 107, 107, 0.397);
+  box-shadow: 0px 5px 7px -1px rgba(107, 107, 107, 0.397);
+  transform: scale(1.05%);
+  -webkit-transform: scale(1.02);
+  -moz-transform: scale(1.02);
+  -ms-transform: scale(1.02);
+  -o-transform: scale(1.02);
+}
+
+.app-action:hover:before {
+  transform: translateX(300px) skewX(-15deg);
+  opacity: 0.6;
+  transition: .7s;
+  -webkit-transform: translateX(300px) skewX(-15deg);
+  -moz-transform: translateX(300px) skewX(-15deg);
+  -ms-transform: translateX(300px) skewX(-15deg);
+  -o-transform: translateX(300px) skewX(-15deg);
+}
+
+.app-action:hover:after {
+  opacity: 1;
+  transition: .7s;
+  transform: translateX(300px)skewX(-15deg);
+  -webkit-transform: translateX(300px)skewX(-15deg);
+  -moz-transform: translateX(300px)skewX(-15deg);
+  -ms-transform: translateX(300px)skewX(-15deg);
+  -o-transform: translateX(300px)skewX(-15deg);
+}
+
+.app-action:active {
+  border: 1px solid rgba(240, 240, 240, 0.623);
+  background-color: #fbfbfb;
+  transform: scale(0.98);
+  -webkit-transform: scale(0.98);
+  -moz-transform: scale(0.98);
+  -ms-transform: scale(0.98);
+  -o-transform: scale(0.98);
+  box-shadow: 0px 1px 1px -1px rgba(107, 107, 107, 0.178)
+}
+
+.app-action:focus {
+  border-width: 1px;
+}
+
+.app-action:disabled,
+.app-action[disabled] {
+  border: 1px solid #9999993f;
+  background-color: #eeeeee49;
+  color: #66666638;
+  cursor: not-allowed;
 }
 
 .shot {
