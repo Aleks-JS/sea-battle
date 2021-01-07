@@ -51,4 +51,51 @@ class ShipView extends Ship {
     this.div.classList.contains('ship-shadow') &&
       this.div.classList.remove('ship-shadow');
   }
+
+  removePlaceAlert() {
+    const div = this.div;
+    div.classList.contains('ship-none-place') &&
+      div.classList.remove('ship-none-place');
+    return true;
+  }
+
+  getPlaceAlert(rectShip, rectField, curShip, windowRect) {
+    const div = this.div;
+
+    const { startX, startY } = curShip;
+
+    const leftShip = rectShip.left;
+    const rightShip = rectShip.right;
+    const topShip = rectShip.top;
+    const bottomShip = rectShip.bottom;
+
+    const leftField = rectField.left;
+    const rightField = rectField.right;
+    const topField = rectField.top;
+    const bottomField = rectField.bottom;
+
+    const difference = topShip - startY;
+
+    if (
+      leftShip < startX + 45 &&
+      leftShip > startX &&
+      topShip - difference < startY + 45 &&
+      topShip - difference > startY - 45
+    ) {
+      this.removePlaceAlert();
+      return;
+    }
+
+    if (
+      leftShip < leftField - 16 ||
+      rightShip > rightField + 16 ||
+      topShip < topField - 16 ||
+      bottomShip > bottomField + 16
+    ) {
+      div.classList.add('ship-none-place');
+      return true;
+    } else {
+      this.removePlaceAlert();
+    }
+  }
 }
