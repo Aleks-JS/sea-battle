@@ -104,6 +104,10 @@ body {
   touch-action: none;
 }
 
+.ship-shadow {
+  box-shadow: rgb(83, 81, 81) 2px 6px 9px -1px;
+}
+
 .ship-row-1 {}
 
 .ship-row-2 {
@@ -254,9 +258,9 @@ body {
 
 .app-action:hover {
   background-color: rgba(224, 224, 224, 0.924);
-  -webkit-box-shadow: 0px 5px 7px -1px rgba(107, 107, 107, 0.397);
-  -moz-box-shadow: 0px 5px 7px -1px rgba(107, 107, 107, 0.397);
-  box-shadow: 0px 5px 7px -1px rgba(107, 107, 107, 0.397);
+  -webkit-box-shadow: 0px 3px 5px -1px rgba(107, 107, 107, 0.397);
+  -moz-box-shadow: 0px 3px 5px -1px rgba(107, 107, 107, 0.397);
+  box-shadow: 0px 3px 5px -1px rgba(107, 107, 107, 0.397);
   transform: scale(1.05%);
   -webkit-transform: scale(1.02);
   -moz-transform: scale(1.02);

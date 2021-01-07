@@ -41,4 +41,14 @@ class ShipView extends Ship {
   isUnder(point) {
     return isUnderPoint(point, this.div);
   }
+
+  addShadow() {
+    !this.div.classList.contains('ship-shadow') &&
+      this.div.classList.add('ship-shadow');
+  }
+
+  removeShadow() {
+    this.div.classList.contains('ship-shadow') &&
+      this.div.classList.remove('ship-shadow');
+  }
 }

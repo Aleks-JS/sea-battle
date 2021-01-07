@@ -106,6 +106,8 @@ class PreparationScene extends Scene {
       // хотим начать тянуть корабль
       const ship = player.ships.find((ship) => ship.isUnder(mouse));
 
+      console.log(player.matrix);
+
       if (ship) {
         const shipRect = ship.div.getBoundingClientRect();
 
@@ -117,6 +119,9 @@ class PreparationScene extends Scene {
         ship.x = null;
         ship.y = null;
       }
+
+      // добавляем тень
+      ship && ship.addShadow();
     }
 
     // Перетаскивание
@@ -146,6 +151,9 @@ class PreparationScene extends Scene {
         x: left + width / 2,
         y: top + height / 2,
       };
+
+      // удаляем тень
+      ship.removeShadow();
 
       // проверка наличия ячейки, над которой бросаем элемент
       const cell = player.cells
@@ -178,8 +186,6 @@ class PreparationScene extends Scene {
       this.placed
     ) {
       this.draggedShip.toggleDirection();
-      console.log(this.draggedShip);
-      console.log(this.placed);
     }
 
     if (player.complete) {
