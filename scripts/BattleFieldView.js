@@ -152,4 +152,26 @@ class BattleFieldView extends BattleField {
 
     return true;
   }
+
+  paintCells(field) {
+    console.log(1);
+    const matrix = this.matrix;
+    for (let y = 0; y < 10; y++) {
+      for (let x = 0; x < 10; x++) {
+        matrix[y][x].free && field[y][x].classList.add('free-cell');
+        !matrix[y][x].free && field[y][x].classList.add('occupied-cell');
+      }
+    }
+  }
+
+  cleanPaintCells(field) {
+    for (let y = 0; y < 10; y++) {
+      for (let x = 0; x < 10; x++) {
+        field[y][x].classList.contains('free-cell') &&
+          field[y][x].classList.remove('free-cell');
+        field[y][x].classList.contains('occupied-cell') &&
+          field[y][x].classList.remove('occupied-cell');
+      }
+    }
+  }
 }

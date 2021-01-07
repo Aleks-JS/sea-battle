@@ -94,7 +94,10 @@ class PreparationScene extends Scene {
 
   update() {
     const { mouse, player } = this.app;
+    // ширина видимой части экрана
     const clientWidth = document.documentElement.clientWidth;
+    // координаты левой верхней ячейки
+    const rectFirstCell = player.cells[0][0].getBoundingClientRect();
 
     // ловим изменения ширины экрана
     if (clientWidth !== this.lastClientWidth) {
@@ -106,10 +109,10 @@ class PreparationScene extends Scene {
       // хотим начать тянуть корабль
       const ship = player.ships.find((ship) => ship.isUnder(mouse));
 
-      console.log(player.matrix);
-
       if (ship) {
         const shipRect = ship.div.getBoundingClientRect();
+
+        ship.getPlaceAlert(shipRect, rectFirstCell, ship);
 
         this.draggedShip = ship;
         this.placed = this.draggedShip.placed;
@@ -119,20 +122,30 @@ class PreparationScene extends Scene {
         ship.x = null;
         ship.y = null;
       }
-
       // добавляем тень
       ship && ship.addShadow();
     }
 
     // Перетаскивание
     if (mouse.curLeftBtn && this.draggedShip) {
-      const { left, top } = player.root.getBoundingClientRect();
+      const fieldRect = player.root.getBoundingClientRect();
+      const { left, top } = fieldRect;
       const x = mouse.x - left - this.draggedOffsetX;
       const y = mouse.y - top - this.draggedOffsetY;
       const el = this.draggedShip.div;
+      const shipRect = el.getBoundingClientRect();
+      // красим корабль, если под ним нет места для парковки
+      this.draggedShip.getPlaceAlert(
+        shipRect,
+        fieldRect,
+        this.draggedShip,
+        this.windowRect
+      );
 
       el.style.left = `${x}px`;
       el.style.top = `${y}px`;
+
+      player.paintCells(player.cells);
     }
 
     // Бросание
@@ -140,11 +153,10 @@ class PreparationScene extends Scene {
       const ship = this.draggedShip;
       this.draggedShip = null;
       this.placed = null;
-
+      // ширина и высота ячейки
+      const { width, height } = rectFirstCell;
       // координаты левой верхней точки корабля
       const { left, top } = ship.div.getBoundingClientRect();
-      // ширина и высота игрового поля
-      const { width, height } = player.cells[0][0].getBoundingClientRect();
 
       // точка приземления корабля в ближайшей ячейке
       const point = {
@@ -154,6 +166,8 @@ class PreparationScene extends Scene {
 
       // удаляем тень
       ship.removeShadow();
+
+      player.cleanPaintCells(player.cells);
 
       // проверка наличия ячейки, над которой бросаем элемент
       const cell = player.cells
@@ -167,6 +181,7 @@ class PreparationScene extends Scene {
         player.removeShip(ship);
         player.addShip(ship, x, y);
       } else {
+        ship.removePlaceAlert();
         player.removeShip(ship);
         player.addShip(ship);
       }

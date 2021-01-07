@@ -359,6 +359,21 @@ body {
   border: 3px solid red;
 }
 
+.free-cell {
+  background-color: #e0ffd2af;
+  border-color: #a1ff75fb;
+}
+
+.occupied-cell {
+  background-color: #ffd6d694;
+  border-color: #ff9494;
+}
+
+.ship-none-place {
+  background-color: #ff696971;
+  border-color: #ff6a6a;
+}
+
 .hidden {
   display: none;
 }
