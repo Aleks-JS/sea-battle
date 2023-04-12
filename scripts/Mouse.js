@@ -30,6 +30,7 @@ class Mouse {
       this.y = e.clientY;
       this.delta = 0;
       this.under = true;
+
     };
 
     // mouse event handlers
